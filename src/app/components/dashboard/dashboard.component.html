@@ -1,0 +1,122 @@
+<div class="dashboard" *ngIf="stats$ | async as stats">
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1>Welcome Back!</h1>
+      <p class="header-subtitle">Here's your job application overview</p>
+    </div>
+    <button mat-raised-button color="accent" routerLink="/add" class="quick-add-btn">
+      <mat-icon>add_circle</mat-icon>
+      Quick Add Application
+    </button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card card-primary">
+      <div class="stat-icon">
+        <mat-icon>assignment</mat-icon>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Total Applications</p>
+        <p class="stat-number">{{ stats.total }}</p>
+      </div>
+      <div class="stat-bar"></div>
+    </div>
+
+    <div class="stat-card card-blue">
+      <div class="stat-icon">
+        <mat-icon>send</mat-icon>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Applied</p>
+        <p class="stat-number">{{ stats.applied }}</p>
+      </div>
+      <div class="stat-bar"></div>
+    </div>
+
+    <div class="stat-card card-orange">
+      <div class="stat-icon">
+        <mat-icon>schedule</mat-icon>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Interviewing</p>
+        <p class="stat-number">{{ stats.interviewing }}</p>
+      </div>
+      <div class="stat-bar"></div>
+    </div>
+
+    <div class="stat-card card-green">
+      <div class="stat-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Accepted</p>
+        <p class="stat-number">{{ stats.accepted }}</p>
+      </div>
+      <div class="stat-bar"></div>
+    </div>
+
+    <div class="stat-card card-red">
+      <div class="stat-icon">
+        <mat-icon>cancel</mat-icon>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Rejected</p>
+        <p class="stat-number">{{ stats.rejected }}</p>
+      </div>
+      <div class="stat-bar"></div>
+    </div>
+  </div>
+
+  <mat-card class="upcoming-card">
+    <mat-card-header class="upcoming-header">
+      <mat-icon class="header-icon">event_upcoming</mat-icon>
+      <mat-card-title>Recent Applications</mat-card-title>
+      <span class="spacer"></span>
+      <button mat-icon-button matTooltip="View all events" routerLink="/calendar">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="stats.upcomingInterviews.length === 0" class="no-interviews">
+        <mat-icon>event_busy</mat-icon>
+        <p>No upcoming interviews scheduled</p>
+        <small>Your upcoming interviews will appear here</small>
+      </div>
+      <div *ngFor="let app of stats.upcomingInterviews; let last = last" class="interview-item">
+        <div class="interview-left">
+          <div class="company-icon">
+            <mat-icon>business</mat-icon>
+          </div>
+          <div class="interview-info">
+            <strong class="company-name">{{ app.company }}</strong>
+            <p class="position-text">{{ app.position }}</p>
+            <small class="interview-date">
+              <mat-icon class="small-icon">schedule</mat-icon>
+              {{ app.interviewDate | date:'MMM dd, yyyy \'at\' h:mm a' }}
+            </small>
+          </div>
+        </div>
+        <mat-chip-set>
+          <mat-chip class="status-chip" [ngClass]="'status-' + (app.status | lowercase)">
+            {{ app.status }}
+          </mat-chip>
+        </mat-chip-set>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="action-buttons">
+    <button mat-raised-button color="primary" routerLink="/add" class="action-btn primary-btn">
+      <mat-icon>add</mat-icon>
+      Add New Application
+    </button>
+    <button mat-raised-button routerLink="/jobs" class="action-btn secondary-btn">
+      <mat-icon>list_alt</mat-icon>
+      View All Applications
+    </button>
+    <button mat-raised-button routerLink="/calendar" class="action-btn tertiary-btn">
+      <mat-icon>calendar_month</mat-icon>
+      View Calendar
+    </button>
+  </div>
+</div>

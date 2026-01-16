@@ -1,0 +1,61 @@
+<div class="calendar-view">
+  <div class="calendar-header">
+    <div class="header-content">
+      <h1>Interview & Deadline Calendar </h1>
+      <p class="header-subtitle">Manage all your interviews and application deadlines in one place</p>
+    </div>
+    <button mat-icon-button matTooltip="Return to dashboard" routerLink="/dashboard">
+      <mat-icon>home</mat-icon>
+    </button>
+  </div>
+
+  <div class="calendar-container">
+    <mat-card class="calendar-card">
+      <mat-card-content>
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="selectedEvent" class="event-details-card">
+      <mat-card-header class="event-header">
+        <mat-icon class="event-icon">event_note</mat-icon>
+        <mat-card-title>Event Details</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="event-detail-row">
+          <strong class="detail-label">Type:</strong>
+          <mat-chip-set>
+            <mat-chip [ngClass]="'event-type-' + (selectedEvent.type | lowercase)">
+              <mat-icon>{{ selectedEvent.type === 'Interview' ? 'event' : 'calendar_today' }}</mat-icon>
+              {{ selectedEvent.type }}
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+        <div class="event-detail-row">
+          <strong class="detail-label">Company:</strong>
+          <p>{{ selectedEvent.company }}</p>
+        </div>
+        <div class="event-detail-row">
+          <strong class="detail-label">Position:</strong>
+          <p>{{ selectedEvent.position }}</p>
+        </div>
+        <div class="event-detail-row">
+          <strong class="detail-label">Date:</strong>
+          <p>{{ selectedEvent.date | date:'EEEE, MMMM d, yyyy' }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card *ngIf="!selectedEvent" class="event-empty-card">
+      <mat-card-content>
+        <div class="empty-state">
+          <mat-icon>info</mat-icon>
+          <p>Click on an event to view details</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  
+</div>

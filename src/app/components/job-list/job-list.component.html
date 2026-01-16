@@ -1,0 +1,101 @@
+<div class="job-list">
+  <div class="list-header">
+    <div class="header-content">
+      <h1>All Applications</h1>
+      <p class="header-description">Manage and track all your job applications</p>
+    </div>
+    <button mat-raised-button color="accent" routerLink="/add" class="add-btn">
+      <mat-icon>add_circle</mat-icon>
+      Add New Application
+    </button>
+  </div>
+
+  <mat-card class="applications-card">
+    <mat-card-content>
+      <div class="table-wrapper">
+        <table mat-table [dataSource]="(applications$ | async) || []" class="applications-table">
+
+          <!-- Company Column -->
+          <ng-container matColumnDef="company">
+            <th mat-header-cell *matHeaderCellDef class="table-header">Company</th>
+            <td mat-cell *matCellDef="let app" class="company-cell">
+              <div class="company-badge">
+                <span class="company-icon">C</span>
+              </div>
+              <span class="company-name">{{ app.company }}</span>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef class="table-header">Position</th>
+            <td mat-cell *matCellDef="let app" class="position-cell">
+              <strong>{{ app.position }}</strong>
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="table-header">Status</th>
+            <td mat-cell *matCellDef="let app" class="status-cell">
+              <mat-chip-set>
+                <mat-chip [ngClass]="'status-' + (app.status | lowercase)">
+                  <mat-icon class="status-icon">
+                    {{ app.status === 'Accepted' ? 'check_circle' : app.status === 'Rejected' ? 'cancel' : app.status
+                    === 'Interviewing' ? 'event' : 'send' }}
+                  </mat-icon>
+                  {{ app.status }}
+                </mat-chip>
+              </mat-chip-set>
+            </td>
+          </ng-container>
+
+          <!-- Applied Date Column -->
+          <ng-container matColumnDef="appliedDate">
+            <th mat-header-cell *matHeaderCellDef class="table-header">Applied</th>
+            <td mat-cell *matCellDef="let app" class="date-cell">
+              <small>{{ app.appliedDate | date:'MMM dd, yyyy' }}</small>
+            </td>
+          </ng-container>
+
+          <!-- Interview Date Column -->
+          <ng-container matColumnDef="interviewDate">
+            <th mat-header-cell *matHeaderCellDef class="table-header">Interview</th>
+            <td mat-cell *matCellDef="let app" class="date-cell">
+              <small *ngIf="app.interviewDate">{{ app.interviewDate | date:'MMM dd, yyyy' }}</small>
+              <small *ngIf="!app.interviewDate" class="no-date">-</small>
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="table-header">Actions</th>
+            <td mat-cell *matCellDef="let app" class="actions-cell">
+              <button mat-icon-button [routerLink]="['/edit', app.id]" class="edit-btn" matTooltip="Edit application">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteApplication(app.id)" class="delete-btn"
+                matTooltip="Delete application">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="table-header-row"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-data-row"></tr>
+
+          <!-- No Data Row -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell no-data" [attr.colspan]="displayedColumns.length">
+              <div class="no-data-content">
+                <mat-icon class="no-data-icon">assignment_late</mat-icon>
+                <p>No applications found</p>
+                <small>Get started by <a routerLink="/add" class="link">adding your first application</a></small>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

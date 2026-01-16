@@ -1,0 +1,114 @@
+<div class="job-form">
+  <div class="form-header">
+    <h1>{{ isEditMode ? 'Edit Application' : 'Add New Application' }}</h1>
+    <p class="form-subtitle">{{ isEditMode ? 'Update your job application details' : 'Track a new job application' }}
+    </p>
+  </div>
+
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-section">
+          <h2 class="section-title">Basic Information</h2>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Company Name</mat-label>
+              <input matInput formControlName="company" placeholder="e.g., goolge, amazon, microsoft">
+              <mat-icon matPrefix>business</mat-icon>
+              <mat-error *ngIf="jobForm.get('company')?.hasError('required')">
+                Company name is required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Position</mat-label>
+              <input matInput formControlName="position" placeholder="e.g., developer, designer, manager">
+              <mat-icon matPrefix>work</mat-icon>
+              <mat-error *ngIf="jobForm.get('position')?.hasError('required')">
+                Position is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Application Status</mat-label>
+              <mat-select formControlName="status">
+                <mat-optgroup label="Status">
+                  <mat-option *ngFor="let status of statuses" [value]="status">
+                    <mat-icon class="option-icon">
+                      {{ status === 'Accepted' ? 'check_circle' : status === 'Rejected' ? 'cancel' : status ===
+                      'Interviewing' ? 'event' : 'send' }}
+                    </mat-icon>
+                    {{ status }}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+              <mat-icon matPrefix>flag</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="form-section">
+          <h2 class="section-title">Important Dates</h2>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Application Date</mat-label>
+              <input matInput [matDatepicker]="appliedPicker" formControlName="appliedDate">
+              <mat-icon matPrefix>date_range</mat-icon>
+              <mat-datepicker-toggle matIconSuffix [for]="appliedPicker"></mat-datepicker-toggle>
+              <mat-datepicker #appliedPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Interview Date (Optional)</mat-label>
+              <input matInput [matDatepicker]="interviewPicker" formControlName="interviewDate">
+              <mat-icon matPrefix>event</mat-icon>
+              <mat-datepicker-toggle matIconSuffix [for]="interviewPicker"></mat-datepicker-toggle>
+              <mat-datepicker #interviewPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Application Deadline (Optional)</mat-label>
+              <input matInput [matDatepicker]="deadlinePicker" formControlName="deadline">
+              <mat-icon matPrefix>calendar_today</mat-icon>
+              <mat-datepicker-toggle matIconSuffix [for]="deadlinePicker"></mat-datepicker-toggle>
+              <mat-datepicker #deadlinePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="form-section">
+          <h2 class="section-title">Additional Notes</h2>
+
+          <mat-form-field appearance="outline" class="form-field full-width">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes" rows="5"
+              placeholder="Add any additional information about this application, interview details, or follow-up notes..."></textarea>
+            <mat-icon matPrefix>notes</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="onCancel()" class="cancel-btn">
+            <mat-icon>close</mat-icon>
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!jobForm.valid" class="submit-btn">
+            <mat-icon>{{ isEditMode ? 'save' : 'check_circle' }}</mat-icon>
+            {{ isEditMode ? 'Update' : 'Create' }} Application
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

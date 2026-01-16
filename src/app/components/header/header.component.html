@@ -1,0 +1,27 @@
+<mat-toolbar class="modern-navbar">
+  <div class="navbar-content">
+    <div class="navbar-brand">
+      <mat-icon class="brand-icon">work_outline</mat-icon>
+      <span class="brand-text">{{ title }}</span>
+    </div>
+    <span class="spacer"></span>
+    <nav class="nav-menu">
+      <button mat-button routerLink="/dashboard" routerLinkActive="active" class="nav-button">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </button>
+      <button mat-button routerLink="/jobs" routerLinkActive="active" class="nav-button">
+        <mat-icon>work</mat-icon>
+        <span>Applications</span>
+      </button>
+      <button mat-button routerLink="/calendar" routerLinkActive="active" class="nav-button">
+        <mat-icon>calendar_today</mat-icon>
+        <span>Calendar</span>
+      </button>
+      <button mat-raised-button color="accent" routerLink="/add" class="nav-add-button">
+        <mat-icon>add</mat-icon>
+        <span>Add New</span>
+      </button>
+    </nav>
+  </div>
+</mat-toolbar>
