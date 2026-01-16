@@ -59,7 +59,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/rahma040/job-application-tracker.git
+git clone https://github.com/lourimi-ayoub/JobApplicationTracker
 
 # Navigate to project directory
 cd job-application-tracker
