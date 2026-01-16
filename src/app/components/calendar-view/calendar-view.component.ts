@@ -53,7 +53,7 @@ export class CalendarViewComponent implements OnInit {
   constructor(private jobService: JobApplicationService) {}
 
   ngOnInit(): void {
-    // Subscribe to applications and convert to calendar events
+    
     this.jobService.applications$.subscribe((apps) => {
       this.calendarOptions.events = this.convertToCalendarEvents(apps);
     });

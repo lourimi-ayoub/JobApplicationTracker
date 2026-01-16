@@ -41,7 +41,7 @@ export class JobListComponent implements OnInit {
   constructor(private jobService: JobApplicationService) {}
 
   ngOnInit(): void {
-    // Subscribe to the reactive stream
+
     this.applications$ = this.jobService.applications$;
   }
 

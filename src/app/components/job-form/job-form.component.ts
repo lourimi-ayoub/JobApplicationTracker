@@ -50,7 +50,7 @@ export class JobFormComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
-    // Check if we're in edit mode
+    
     this.route.params.subscribe((params) => {
       const id = params['id'];
       if (id) {

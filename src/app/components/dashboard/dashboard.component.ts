@@ -41,7 +41,6 @@ export class DashboardComponent implements OnInit {
   constructor(private jobService: JobApplicationService) {}
 
   ngOnInit(): void {
-    // Create a derived Observable that calculates stats reactively
     this.stats$ = this.jobService.applications$.pipe(map((apps) => this.calculateStats(apps)));
   }
 
